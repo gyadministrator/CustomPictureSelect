@@ -1,2 +1,2 @@
-include ':app', ':imagerecyclerview'
+include ':app', ':imagerecyclerview',':picture_library', ':ucrop'
 rootProject.name='CustomPictureSelect'

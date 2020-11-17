@@ -15,9 +15,6 @@ import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.android.custom.imagerecyclerview.R;
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.engine.DiskCacheStrategy;
-import com.bumptech.glide.request.RequestOptions;
 import com.luck.picture.lib.config.PictureConfig;
 import com.luck.picture.lib.config.PictureMimeType;
 import com.luck.picture.lib.entity.LocalMedia;
@@ -189,15 +186,7 @@ public class GridImageAdapter extends RecyclerView.Adapter<GridImageAdapter.View
             if (mimeType == PictureMimeType.ofAudio()) {
                 viewHolder.mImg.setImageResource(R.drawable.audio_placeholder);
             } else {
-                RequestOptions options = new RequestOptions()
-                        .centerCrop()
-                        .placeholder(R.color.color_f6)
-                        .diskCacheStrategy(DiskCacheStrategy.ALL);
-                Glide.with(viewHolder.itemView.getContext())
-                        .load(path)
-                        .apply(options)
-                        .into(viewHolder.mImg);
-
+                Picasso.get().load(path).placeholder(R.color.color_f6).error(R.color.color_f6).into(viewHolder.mImg);
             }
             //itemView 的点击事件
             if (mItemClickListener != null) {

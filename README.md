@@ -10,7 +10,7 @@ allprojects {
 
 	}
 
-implementation 'com.github.gyadministrator:CustomPictureSelect:1.4'
+implementation 'com.github.gyadministrator:CustomPictureSelect:2.0'
 
 主要代码
 package com.android.custom.picture;
