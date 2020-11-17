@@ -217,7 +217,21 @@ public class ImageRecyclerView extends RecyclerView implements GridImageAdapter.
         if (resultCode == RESULT_OK) {
             if (requestCode == PictureConfig.CHOOSE_REQUEST) {// 图片选择结果回调
                 images = PictureSelector.obtainMultipleResult(data);
-                selectList.addAll(images);
+                //selectList.addAll(images);
+                ArrayList<String> list = new ArrayList<>();
+                if (images != null && images.size() > 0) {
+                    for (LocalMedia localMedia : images) {
+                        if (localMedia != null) {
+                            String path = localMedia.getPath();
+                            if (!TextUtils.isEmpty(path)) {
+                                list.add(path);
+                            }
+                        }
+                    }
+                }
+                if (uploadListener != null) {
+                    uploadListener.uploadFilesListener(list);
+                }
 
                 //selectList = PictureSelector.obtainMultipleResult(data);
 
@@ -226,9 +240,9 @@ public class ImageRecyclerView extends RecyclerView implements GridImageAdapter.
                 // 2.media.getCutPath();为裁剪后path，需判断media.isCut();是否为true
                 // 3.media.getCompressPath();为压缩后path，需判断media.isCompressed();是否为true
                 // 如果裁剪并压缩了，以取压缩路径为准，因为是先裁剪后压缩的
-                adapter.setList(selectList);
-                adapter.notifyDataSetChanged();
-                adapter.setOnItemClickListener(this);
+                //adapter.setList(selectList);
+                //adapter.notifyDataSetChanged();
+                //adapter.setOnItemClickListener(this);
             }
         }
     }
@@ -283,5 +297,17 @@ public class ImageRecyclerView extends RecyclerView implements GridImageAdapter.
 
     public interface OnPictureClickListener {
         void clickItem(int position, List<LocalMedia> list);
+    }
+
+    private OnUploadListener uploadListener;
+
+    public void setUploadListener(OnUploadListener uploadListener) {
+        this.uploadListener = uploadListener;
+    }
+
+    public interface OnUploadListener {
+        void uploadFilesListener(List<String> list);
+
+        void uploadFileListener(String path);
     }
 }
