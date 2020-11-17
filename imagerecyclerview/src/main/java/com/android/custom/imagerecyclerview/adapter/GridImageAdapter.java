@@ -15,14 +15,12 @@ import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.android.custom.imagerecyclerview.R;
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.engine.DiskCacheStrategy;
-import com.bumptech.glide.request.RequestOptions;
 import com.luck.picture.lib.config.PictureConfig;
 import com.luck.picture.lib.config.PictureMimeType;
 import com.luck.picture.lib.entity.LocalMedia;
 import com.luck.picture.lib.tools.DateUtils;
 import com.luck.picture.lib.tools.StringUtils;
+import com.squareup.picasso.Picasso;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -131,7 +129,7 @@ public class GridImageAdapter extends RecyclerView.Adapter<GridImageAdapter.View
         } else {
             if (isShowDelete) {
                 viewHolder.ll_del.setVisibility(View.VISIBLE);
-            }else {
+            } else {
                 viewHolder.ll_del.setVisibility(View.INVISIBLE);
             }
             viewHolder.ll_del.setOnClickListener(new View.OnClickListener() {
@@ -188,14 +186,7 @@ public class GridImageAdapter extends RecyclerView.Adapter<GridImageAdapter.View
             if (mimeType == PictureMimeType.ofAudio()) {
                 viewHolder.mImg.setImageResource(R.drawable.audio_placeholder);
             } else {
-                RequestOptions options = new RequestOptions()
-                        .centerCrop()
-                        .placeholder(R.color.color_f6)
-                        .diskCacheStrategy(DiskCacheStrategy.ALL);
-                Glide.with(viewHolder.itemView.getContext())
-                        .load(path)
-                        .apply(options)
-                        .into(viewHolder.mImg);
+                Picasso.get().load(path).centerCrop().placeholder(R.color.color_f6).error(R.color.color_f6).into(viewHolder.mImg);
             }
             //itemView 的点击事件
             if (mItemClickListener != null) {

@@ -32,4 +32,5 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
     api 'androidx.recyclerview:recyclerview:1.1.0'
     api 'com.github.LuckSiege.PictureSelector:picture_library:v2.2.3'
+    api 'com.squareup.picasso:picasso:2.71828'
 }
